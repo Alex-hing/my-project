@@ -1,0 +1,152 @@
+:root {
+  --teal-700:#008b8b;
+  --teal-50:#f4f9f9;
+  --white:#ffffff;
+  --gold:#d9b24a;
+  --text:#222;
+}
+
+/* === Фон для страницы Contacts === */
+body.contacts {
+  position: relative;
+  min-height: 100vh;
+}
+body.contacts::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* === Заголовки и секции === */
+.section__title {
+  text-align: center;
+  color: var(--teal-700);
+  font-size: clamp(24px, 4vw, 38px);
+  margin-bottom: 24px;
+}
+.section__text {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 32px;
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* === Список контактов === */
+.contacts-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.contacts-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,0.85); /* полупрозрачный */
+  border: 2px solid var(--teal-700);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  font-size: 1.05rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contacts-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+.contacts-list strong {
+  color: var(--gold);
+  min-width: 100px;
+  display: inline-block;
+}
+
+/* === QR-коды === */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.qr-item {
+  background: rgba(255,255,255,0.85);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* центрируем содержимое */
+  justify-content: center;
+}
+
+/* эффект подсветки при наведении */
+.qr-item::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 16px;
+  background: radial-gradient(circle, rgba(217,178,74,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.qr-item:hover::after {
+  opacity: 1;
+}
+
+.qr-item:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+.qr-item img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 14px;
+  transition: transform 0.3s ease;
+}
+.qr-item:hover img {
+  transform: scale(1.1);
+}
+
+.qr-item p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--teal-700);
+  letter-spacing: .5px;
+}
+
+/* === Анимации появления === */
+.section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.contacts-list li, 
+.qr-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+.section.show .contacts-list li,
+.section.show .qr-item {
+  opacity: 1;
+  transform: translateY(0);
+}
